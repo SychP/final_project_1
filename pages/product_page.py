@@ -26,7 +26,11 @@ class MainPage(BasePage):
         item_price = self.get_item_price()
         cart_total = self.browser.find_element(*ProductPageLocators.CART_TOTAL_PRICE).text
         assert item_price == cart_total, "Cart total is differs from Item price"
-    
+ 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ITEM_ADDED_TO_CART),\
+            "Successfully added to cart message appears without any action"
+ 
     def get_item_name(self):
         assert self.is_element_present(*ProductPageLocators.ITEM_NAME), \
             "Item name is not presented"
@@ -42,5 +46,12 @@ class MainPage(BasePage):
         added_book = self.browser.find_element(*ProductPageLocators.ITEM_ADDED_TO_CART).text
         assert added_book == book_name, "Book added to cart differs from current book name"
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ITEM_ADDED_TO_CART),\
+            "Successfully added to cart message appears without any action"
+
+    def should_dissapear_of_success_message(self):
+        assert self.is_element_disappeared(*ProductPageLocators.ITEM_ADDED_TO_CART),\
+            "Success message is not disappeared"          
             
 
